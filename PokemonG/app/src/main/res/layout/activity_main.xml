@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <ImageView
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <ImageView
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/bg_pokemon_go"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:buttonTint="#F00707"
+        android:id="@+id/cbMew"
+        android:textSize="50sp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <SeekBar
+        android:layout_toRightOf="@id/cbMew"
+        android:id="@+id/mewth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:thumb="@drawable/meowth" />
+
+    <CheckBox
+        android:buttonTint="#F00707"
+        android:id="@+id/cbPikachu"
+        android:textSize="50sp"
+        android:layout_above="@id/mewth"
+        android:layout_marginBottom="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <SeekBar
+        android:layout_toRightOf="@id/cbPikachu"
+        android:thumb="@drawable/pikachu"
+        android:id="@+id/pikachu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/mewth"
+        android:layout_marginBottom="50dp" />
+
+    <CheckBox
+        android:buttonTint="#F00707"
+        android:id="@+id/cbPsyduck"
+        android:textSize="50sp"
+        android:layout_above="@id/pikachu"
+        android:layout_marginBottom="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <SeekBar
+        android:layout_toRightOf="@id/cbPsyduck"
+        android:thumb="@drawable/psyduck"
+        android:id="@+id/psyduck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/pikachu"
+        android:layout_marginBottom="50dp" />
+
+    <CheckBox
+        android:textSize="50sp"
+        android:buttonTint="#F00707"
+        android:id="@+id/cbSnorlax"
+        android:layout_above="@id/psyduck"
+        android:layout_marginBottom="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <SeekBar
+        android:layout_toRightOf="@id/cbSnorlax"
+        android:thumb="@drawable/snorlax"
+        android:id="@+id/snorlax"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/psyduck"
+        android:layout_marginBottom="50dp" />
+</RelativeLayout>
