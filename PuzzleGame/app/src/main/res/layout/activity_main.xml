@@ -6,6 +6,17 @@
     tools:context=".MainActivity"
     android:background="@drawable/bg_intro">
 
+    <EditText
+        android:id="@+id/edtPlayerName"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/colorEdtName"
+        android:textSize="30sp"
+        android:hint=" Enter your name"
+        android:layout_marginBottom="40dp"
+        android:layout_above="@id/btnPlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <ImageButton
         android:clickable="true"
         android:background="@null"
