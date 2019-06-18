@@ -68,6 +68,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                     tvTime.setText("0");
                     Toast.makeText(PlayActivity.this, "Game over",
                             Toast.LENGTH_SHORT).show();
+                    finish();
                 }
                 break;
             case R.id.btnFalse:
@@ -84,6 +85,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                     tvTime.setText("0");
                     Toast.makeText(PlayActivity.this, "Game over",
                             Toast.LENGTH_SHORT).show();
+                    finish();
                 }
                 break;
 
@@ -125,6 +127,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                     btnTrue.setVisibility(btnTrue.GONE);
                     btnFalse.setVisibility(btnFalse.GONE);
                     cdt.cancel();
+                    finish();
                 }
             }
 
