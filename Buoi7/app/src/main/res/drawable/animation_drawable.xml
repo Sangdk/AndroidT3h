@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list
+    android:oneshot="false"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/rotate_drawable"
+        android:duration="200"/>
+    <item android:drawable="@drawable/rotate_drawable_90"
+        android:duration="200"/>
+    <item android:drawable="@drawable/rotate_drawable_135"
+        android:duration="200"/>
+    <item android:drawable="@drawable/rotate_drawable_180"
+        android:duration="200"/>
+    <item android:drawable="@drawable/rotate_drawable_225"
+        android:duration="200"/>
+    <item android:drawable="@drawable/rotate_drawable_270"
+        android:duration="200"/>
+    <item android:drawable="@drawable/rotate_drawable_315"
+        android:duration="200"/>
+</animation-list>
