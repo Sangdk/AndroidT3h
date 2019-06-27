@@ -13,8 +13,7 @@ android:layout_height="match_parent">
         android:layout_height="64dp"
         android:gravity="center"
         android:textSize="36dp"
-        android:id="@+id/tvTimer"
-        android:text="00:00:00"/>
+        android:id="@+id/tvTimer"/>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

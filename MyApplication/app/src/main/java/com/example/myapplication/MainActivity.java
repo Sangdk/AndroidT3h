@@ -16,19 +16,15 @@ import java.util.Timer;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnStart;
-    Button btnStop;
-    TextView tvTimer;
-    long msText = 0;
-    long scText = 0;
-    long minText = 0;
-    long hourText = 0;
-    CountDownTimer cdt;
+    private Button btnStart;
+    private Button btnStop;
+    private TextView tvTimer;
+    private CountDownTimer cdt;
+    private Time t = new Time(0,0,0,0);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initView();
     }
 
@@ -39,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnStop.setOnClickListener(this);
         btnStart.setOnClickListener(this);
 
+        tvTimer.setText(t.show());
+
     }
 
     @Override
@@ -46,52 +44,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.btnStart:
                 checkTime();
+                btnStart.setClickable(false);
+                btnStop.setClickable(true);
                 break;
             case R.id.btnStop:
+                btnStop.setClickable(false);
+                btnStart.setClickable(true);
                 cdt.cancel();
-                String timeResult = hourText + " :" + minText + " :" + scText + " :" + msText;
-                Toast.makeText(this, timeResult, Toast.LENGTH_SHORT).show();
-                msText = 0;
-                scText = 0;
-                minText = 0;
-                hourText = 0;
-                setTextView();
+                Toast.makeText(this, t.show(), Toast.LENGTH_LONG).show();
+                reset();
                 break;
 
         }
     }
 
     public void checkTime() {
-        cdt = new CountDownTimer(500000000, 10) {
+        cdt = new CountDownTimer(1000,10) {
             @Override
             public void onTick(long l) {
-                msText += 1;
-                if( msText == 100) {
-                    scText += 1;
-                    msText = 0;
+               t.setMsText(t.getMsText()+1);
+                if( t.getMsText()== 100) {
+                    t.setScText(t.getScText()+1);
+                    t.setMsText(0);
                 }
-                if( scText == 60) {
-                    minText += 1;
-                    scText = 0;
+                if( t.getScText() == 60) {
+                    t.setMinText(t.getMinText()+1);
+                    t.setScText(0);
                 }
-                if( minText == 60) {
-                    hourText += 1;
-                    minText = 0;
+                if( t.getMinText() == 60) {
+                    t.setHourText(t.getHourText()+1);
+                    t.setMinText(0);
                 }
-                setTextView();
+                tvTimer.setText(t.show());
             }
-
             @Override
             public void onFinish() {
                 this.start();
             }
         };
         cdt.start();
-
+    }
+    public void reset(){
+        t.setMinText(0);
+        t.setMsText(0);
+        t.setScText(0);
+        t.setHourText(0);
     }
 
-    public void setTextView() {
-        String timeResult = hourText + " :" + minText + " :" + scText + " :" + msText;
-        tvTimer.setText( timeResult );
-    }
 }
