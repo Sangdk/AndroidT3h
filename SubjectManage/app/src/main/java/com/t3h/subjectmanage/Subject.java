@@ -30,4 +30,20 @@ public class Subject {
     public float getPoint() {
         return point;
     }
+
+    public void setImage(int image) {
+        this.image = image;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPoint(float point) {
+        this.point = point;
+    }
 }
