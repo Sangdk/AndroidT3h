@@ -20,7 +20,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnStop;
     private TextView tvTimer;
     private CountDownTimer cdt;
-    private Time t = new Time(0,0,0,0);
+    private Time t = new Time(0, 0, 0, 0);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,24 +60,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void checkTime() {
-        cdt = new CountDownTimer(1000,10) {
+        cdt = new CountDownTimer(1000, 10) {
             @Override
             public void onTick(long l) {
-               t.setMsText(t.getMsText()+1);
-                if( t.getMsText()== 100) {
-                    t.setScText(t.getScText()+1);
+                t.setMsText(t.getMsText() + 1);
+                if (t.getMsText() == 100) {
+                    t.setScText(t.getScText() + 1);
                     t.setMsText(0);
                 }
-                if( t.getScText() == 60) {
-                    t.setMinText(t.getMinText()+1);
+                if (t.getScText() == 60) {
+                    t.setMinText(t.getMinText() + 1);
                     t.setScText(0);
                 }
-                if( t.getMinText() == 60) {
-                    t.setHourText(t.getHourText()+1);
+                if (t.getMinText() == 60) {
+                    t.setHourText(t.getHourText() + 1);
                     t.setMinText(0);
                 }
                 tvTimer.setText(t.show());
             }
+
             @Override
             public void onFinish() {
                 this.start();
@@ -84,7 +86,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
         cdt.start();
     }
-    public void reset(){
+
+    public void reset() {
         t.setMinText(0);
         t.setMsText(0);
         t.setScText(0);

@@ -28,9 +28,11 @@ public class MainActivity extends AppCompatActivity implements FaceAdapter.ItemC
         data.add(new Face(R.drawable.cryyyy,"cryyyy"));
         data.add(new Face(R.drawable.cry,"cry"));
         data.add(new Face(R.drawable.cryy,"cryy"));
-        data.add(new Face(R.drawable.cryyyy,"cryyyy"));data.add(new Face(R.drawable.cry,"cry"));
+        data.add(new Face(R.drawable.cryyyy,"cryyyy"));
+        data.add(new Face(R.drawable.cry,"cry"));
         data.add(new Face(R.drawable.cryy,"cryy"));
-        data.add(new Face(R.drawable.cryyyy,"cryyyy"));data.add(new Face(R.drawable.cry,"cry"));
+        data.add(new Face(R.drawable.cryyyy,"cryyyy"));
+        data.add(new Face(R.drawable.cry,"cry"));
         data.add(new Face(R.drawable.cryy,"cryy"));
         data.add(new Face(R.drawable.cryyyy,"cryyyy"));
 
