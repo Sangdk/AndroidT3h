@@ -16,6 +16,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryHolder> {
     private ArrayList<Story> data;
     private LayoutInflater inflater;
+    private ItemOnClickListener itemOnClickListener;
 
     public StoryAdapter(Context context) {
         inflater = LayoutInflater.from(context);
@@ -25,19 +26,39 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryHolder>
         this.data = data;
     }
 
+    public void setItemOnClickListener(ItemOnClickListener itemOnClickListener) {
+        this.itemOnClickListener = itemOnClickListener;
+    }
+
     @NonNull
     @Override
     public StoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = inflater.inflate(R.layout.item_story,parent,false);
+        View v = inflater.inflate(R.layout.item_story, parent, false);
 
         return new StoryHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StoryHolder holder, int position) {
+    public void onBindViewHolder(@NonNull StoryHolder holder, final int position) {
         Story item = data.get(position);
         holder.bindData(item);
 
+        if (itemOnClickListener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemOnClickListener.onItemClicked(position);
+                }
+            });
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    itemOnClickListener.onItemLongClick(position);
+                    return true;
+                }
+            });
+
+        }
     }
 
     @Override
@@ -65,6 +86,12 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryHolder>
             txtStatus.setText(item.getStatus());
 
         }
+    }
+
+    public interface ItemOnClickListener {
+        void onItemClicked(int position);
+
+        void onItemLongClick(int position);
     }
 
 }

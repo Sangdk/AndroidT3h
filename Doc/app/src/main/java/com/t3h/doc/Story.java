@@ -8,17 +8,23 @@ public class Story {
     private String author;
     private String pubDate;
     private int image;
+    private String detail;
 
-    public Story(@DrawableRes int image, String name, String status, String author, String pubDate) {
+    public Story(@DrawableRes int image, String name, String status, String author, String pubDate,String detail) {
         this.name = name;
         this.status = status;
         this.author = author;
         this.pubDate = pubDate;
         this.image = image;
+        this.detail = detail;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getDetail() {
+        return detail;
     }
 
     public String getStatus() {
@@ -32,6 +38,9 @@ public class Story {
         return result;
     }
 
+    public String getAuthor() {
+        return author;
+    }
 
     public String getPubDate() {
         return pubDate;

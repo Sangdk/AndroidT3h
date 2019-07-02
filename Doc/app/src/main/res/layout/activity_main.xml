@@ -1,48 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity"
-    android:background="#212966">
+    android:background="@color/color_background"
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#212966"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/color_bar"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/button_show_menu"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/ic_menu" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:text="Đọc Truyện"
+                android:textColor="@color/text_while"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_story"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_bar"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/button_show_menu"
+        <Button
+            android:id="@+id/btn_home"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@android:color/transparent"
-            android:src="@drawable/ic_show_menu" />
+            android:drawableTop="@drawable/ic_home"
+            android:text="Home"
+            android:textAllCaps="false"
+            android:textColor="@color/text_while"
+            android:textStyle="bold" />
 
-        <TextView
+        <Button
+            android:id="@+id/btn_category"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="7"
-            android:gravity="center_vertical"
-            android:paddingLeft="16dp"
-            android:text="Đọc Truyện"
-            android:textColor="#F5F5F5"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            android:drawableTop="@drawable/ic_list"
+            android:text="Thể loại"
+            android:textAllCaps="false"
+            android:textColor="@color/text_while" />
+
+        <Button
+            android:id="@+id/btn_library"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            android:drawableTop="@drawable/ic_library"
+            android:text="Thư viện"
+            android:textAllCaps="false"
+            android:textColor="@color/text_while" />
+
+        <Button
+            android:id="@+id/btn_account"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            android:drawableTop="@drawable/ic_user"
+            android:text="Tài khoản"
+            android:textAllCaps="false"
+            android:textColor="@color/text_while" />
     </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_story"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#212966"
-        android:orientation="horizontal"></LinearLayout>
-</LinearLayout>
+</RelativeLayout>
