@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/new_game"
+        android:icon="@mipmap/ic_launcher"
+        android:title="@string/new_game" />
+    <item
+        android:id="@+id/help"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="@string/help" />
+    <item
+        android:id="@+id/option"
+        android:icon="@mipmap/ic_launcher_round"
+        android:title="@string/option" />
+</menu>

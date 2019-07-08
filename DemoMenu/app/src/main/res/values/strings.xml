@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">DemoMenu</string>
+    <string name="new_game">New Game</string>
+    <string name="help">Help</string>
+    <string name="option">Option</string>
+    <string name="option_1">Have 1 billion $</string>
+    <string name="option_2">Have beautiful wife</string>
+    <string name="option_3">Be a president USA</string>
+    <string name="btn_txt">Click to be Happy</string>
+</resources>
