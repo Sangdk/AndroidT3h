@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.SearchView;
 
 import com.t3h.buoi10.api.ApiBuilder;
 import com.t3h.buoi10.dao.AppDatabase;
@@ -24,7 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, Callback<NewsReponsive>, Runnable {
-    private EditText edtSearch;
+    private SearchView svMain;
     private Button btnSearch;
     private List<News> data;
     private RecyclerView recyclerViewNews;
@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
-        edtSearch = findViewById(R.id.edt_search);
         btnSearch = findViewById(R.id.btn_search);
         recyclerViewNews = findViewById(R.id.recycler_news);
 
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        String keySearch = edtSearch.getText().toString();
+        String keySearch = svMain.getQuery().toString();
         String apiKey = "8921d0b0544848a9b059d19e8a93b71b";
         String language = "vi";
 
