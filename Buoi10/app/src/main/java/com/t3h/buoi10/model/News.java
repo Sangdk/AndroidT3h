@@ -9,8 +9,8 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "news")
 
 public class News {
-    @PrimaryKey
-    private long id = System.currentTimeMillis();
+    @PrimaryKey(autoGenerate = true)
+    private long id;
 
     @ColumnInfo(name = "title")
     @SerializedName("title")
