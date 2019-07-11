@@ -6,8 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.View;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.SearchView;
 
 import com.t3h.buoi10.api.ApiBuilder;
@@ -17,18 +18,19 @@ import com.t3h.buoi10.model.NewsAdapter;
 import com.t3h.buoi10.model.NewsReponsive;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, Callback<NewsReponsive>, Runnable {
-    private SearchView svMain;
-    private Button btnSearch;
+public class MainActivity extends AppCompatActivity implements Callback<NewsReponsive>, Runnable, SearchView.OnQueryTextListener {
+    private MenuInflater inflater;
     private List<News> data;
     private RecyclerView recyclerViewNews;
     private NewsAdapter adapter;
+    private SearchView searchView;
     public static final int WHAT_NEWS = 1;
 
     @Override
@@ -42,23 +44,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+
+        MenuItem item = menu.findItem(R.id.search_bar);
+        searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(this);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
     private void initView() {
-        btnSearch = findViewById(R.id.btn_search);
         recyclerViewNews = findViewById(R.id.recycler_news);
 
         adapter = new NewsAdapter(this);
-        btnSearch.setOnClickListener(this);
         recyclerViewNews.setAdapter(adapter);
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        String keySearch = svMain.getQuery().toString();
-        String apiKey = "8921d0b0544848a9b059d19e8a93b71b";
-        String language = "vi";
-
-        ApiBuilder.getInstance().getNews(keySearch, apiKey, language).enqueue(this);
 
     }
 
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         AppDatabase.getInstance(this).getNewsDao()
                 .insertAll(arr);
-
+        adapter.setData(Arrays.asList(arr));
     }
 
     @Override
@@ -101,4 +103,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     };
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        String keySearch = searchView.getQuery().toString();
+        String apiKey = "8921d0b0544848a9b059d19e8a93b71b";
+        String language = "vi";
+
+        ApiBuilder.getInstance().getNews(keySearch, apiKey, language).enqueue(this);
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
 }
