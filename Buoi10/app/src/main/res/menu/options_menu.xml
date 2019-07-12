@@ -7,6 +7,6 @@
         android:iconTint="@android:color/transparent"
         android:title="@string/search_title"
         app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="collapseActionView|always" />
+        app:showAsAction="collapseActionView|ifRoom" />
 
 </menu>

@@ -25,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements Callback<NewsReponsive>, Runnable, SearchView.OnQueryTextListener {
+public class MainActivity extends AppCompatActivity implements Callback<NewsReponsive>, SearchView.OnQueryTextListener {
     private MenuInflater inflater;
     private List<News> data;
     private RecyclerView recyclerViewNews;
@@ -39,9 +39,6 @@ public class MainActivity extends AppCompatActivity implements Callback<NewsRepo
         setContentView(R.layout.activity_main);
         initView();
 
-        Thread t = new Thread(this);
-        t.start();
-
     }
 
     @Override
@@ -51,7 +48,9 @@ public class MainActivity extends AppCompatActivity implements Callback<NewsRepo
 
         MenuItem item = menu.findItem(R.id.search_bar);
         searchView = (SearchView) item.getActionView();
+        searchView.setQueryHint("Search here...");
         searchView.setOnQueryTextListener(this);
+        searchView.setIconified(false);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -72,8 +71,8 @@ public class MainActivity extends AppCompatActivity implements Callback<NewsRepo
         News[] arr = new News[news.size()];
         news.toArray(arr);
 
-        AppDatabase.getInstance(this).getNewsDao()
-                .insertAll(arr);
+//        AppDatabase.getInstance(this).getNewsDao()
+//                .insertAll(arr);
         adapter.setData(Arrays.asList(arr));
     }
 
@@ -82,27 +81,27 @@ public class MainActivity extends AppCompatActivity implements Callback<NewsRepo
 
     }
 
-    @Override
-    public void run() {
-        data = AppDatabase.getInstance(this)
-                .getNewsDao().getAll();
-        Message msg = new Message();
-        msg.obj = data;
-        msg.what = WHAT_NEWS;
-        handler.sendMessage(msg);
-
-    }
-
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (msg.what == WHAT_NEWS) {
-                data = (List<News>) msg.obj;
-                adapter.setData(data);
-            }
-        }
-    };
+//    @Override
+//    public void run() {
+//        data = AppDatabase.getInstance(this)
+//                .getNewsDao().getAll();
+//        Message msg = new Message();
+//        msg.obj = data;
+//        msg.what = WHAT_NEWS;
+//        handler.sendMessage(msg);
+//
+//    }
+//
+//    private Handler handler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//            if (msg.what == WHAT_NEWS) {
+//                data = (List<News>) msg.obj;
+//                adapter.setData(data);
+//            }
+//        }
+//    };
 
     @Override
     public boolean onQueryTextSubmit(String query) {
