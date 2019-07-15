@@ -1,5 +1,6 @@
 package com.t3h.newsproject.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,8 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.t3h.newsproject.Const;
 import com.t3h.newsproject.MainActivity;
 import com.t3h.newsproject.R;
+import com.t3h.newsproject.WebViewActivity;
 import com.t3h.newsproject.api.ApiBuilder;
 import com.t3h.newsproject.dao.AppDatabase;
 import com.t3h.newsproject.model.News;
@@ -49,7 +52,7 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
         adapter.setItemClickListener(this);
         setHasOptionsMenu(true);
         initData();
-        Log.d("NewsFag","created");
+        Log.d("NewsFag", "created");
     }
 
     @Override
@@ -109,8 +112,10 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
     @Override
     public void onItemClickListener(int position) {
         String url = adapter.getData().get(position).getUrl();
-        getParentActivity().showFragment(getParentActivity().getFmWebView(url));
-        Log.d("NewsFrag","show web view:"+url);
+        Intent intent = new Intent(getParentActivity(), WebViewActivity.class);
+        intent.putExtra(Const.EXTRA_URL, url);
+        getParentActivity().startActivity(intent);
+        Log.d("NewsFrag", "show web view:" + url);
     }
 
     @Override

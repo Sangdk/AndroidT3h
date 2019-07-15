@@ -13,7 +13,6 @@ import com.google.android.material.tabs.TabLayout;
 import com.t3h.newsproject.fragment.FavoriteFragment;
 import com.t3h.newsproject.fragment.NewsFragment;
 import com.t3h.newsproject.fragment.SaveFragment;
-import com.t3h.newsproject.fragment.WebViewFragment;
 
 public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
     private ViewPager viewPager;
@@ -22,7 +21,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private FavoriteFragment fmFavorite = new FavoriteFragment();
     private NewsFragment fmNews = new NewsFragment();
     private SaveFragment fmSaved = new SaveFragment();
-    private WebViewFragment fmWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +77,5 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     public SaveFragment getFmSaved() {
         return fmSaved;
-    }
-
-    public WebViewFragment getFmWebView(String url) {
-        fmWebView = new WebViewFragment(url);
-        Log.d("main","getWeb View");
-        return fmWebView;
     }
 }
