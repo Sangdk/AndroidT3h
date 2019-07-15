@@ -1,7 +1,4 @@
 package com.t3h.newsproject.model;
-
-import android.widget.BaseAdapter;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;

@@ -49,6 +49,7 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
         adapter.setItemClickListener(this);
         setHasOptionsMenu(true);
         initData();
+        Log.d("NewsFag","created");
     }
 
     @Override
@@ -107,6 +108,9 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
 
     @Override
     public void onItemClickListener(int position) {
+        String url = adapter.getData().get(position).getUrl();
+        getParentActivity().showFragment(getParentActivity().getFmWebView(url));
+        Log.d("NewsFrag","show web view:"+url);
     }
 
     @Override

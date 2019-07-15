@@ -2,6 +2,7 @@ package com.t3h.newsproject.fragment;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.MenuItem;
 
 import android.widget.PopupMenu;
@@ -37,6 +38,7 @@ public class SaveFragment extends BaseFragment<MainActivity> implements NewsAdap
         super.onActivityCreated(savedInstanceState);
         initView();
         initData();
+        Log.d("SaveFrag","created");
     }
 
     private void initData() {
