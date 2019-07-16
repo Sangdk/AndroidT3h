@@ -31,6 +31,16 @@ public class News {
     @SerializedName("publishedAt")
     private String date;
 
+    private int isFavorite = 0;
+
+    public int isFavorite() {
+        return isFavorite;
+    }
+
+    public void setIsFavorite(int isFavorite) {
+        this.isFavorite = isFavorite;
+    }
+
     public long getId() {
         return id;
     }

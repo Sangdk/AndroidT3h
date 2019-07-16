@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:padding="@dimen/small_padding"
         android:textStyle="bold"
         android:id="@+id/txt_save"
         android:layout_width="match_parent"

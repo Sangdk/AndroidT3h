@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -44,6 +45,11 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
     }
 
     @Override
+    public String getTitle() {
+        return "Tin mới";
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         recyclerNews = findViewById(R.id.recycler_news);
@@ -61,6 +67,7 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
         inflater.inflate(R.menu.options_menu, menu);
         MenuItem item = menu.findItem(R.id.search_bar);
         searchView = (SearchView) item.getActionView();
+        searchView.setIconified(false);
         searchView.setOnQueryTextListener(this);
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -71,13 +78,14 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
             String language = "vi";
             ApiBuilder.getInstance().getNews(keySearch, apiKey, language).enqueue(this);
             Log.d(TAG, "not null");
-        } else {
-            keySearch = "ronaldo";
-            String apiKey = "8921d0b0544848a9b059d19e8a93b71b";
-            String language = "vi";
-            Log.d(TAG, "null");
-            ApiBuilder.getInstance().getNews(keySearch, apiKey, language).enqueue(this);
         }
+//        else {
+//            keySearch = "ronaldo";
+//            String apiKey = "8921d0b0544848a9b059d19e8a93b71b";
+//            String language = "vi";
+//            Log.d(TAG, "null");
+//            ApiBuilder.getInstance().getNews(keySearch, apiKey, language).enqueue(this);
+//        }
     }
 
     @Override
@@ -122,7 +130,7 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
     public void onItemLongClickListener(int position) {
         News item = adapter.getData().get(position);
         AppDatabase.getInstance(getContext()).getNewsDao().insert(item);
+        getParentActivity().getFmSave().initData();
         Toast.makeText(getContext(), "Tin đã lưu", Toast.LENGTH_SHORT).show();
-
     }
 }

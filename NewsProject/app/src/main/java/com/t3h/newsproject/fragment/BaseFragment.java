@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 public abstract class BaseFragment<AC extends AppCompatActivity>
         extends Fragment {
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -33,4 +34,6 @@ public abstract class BaseFragment<AC extends AppCompatActivity>
     public AC getParentActivity() {
         return (AC) getActivity();
     }
+
+    public abstract String getTitle();
 }
