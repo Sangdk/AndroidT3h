@@ -1,5 +1,7 @@
 package com.t3h.newsproject.model;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -31,7 +33,7 @@ public class News {
     @SerializedName("publishedAt")
     private String date;
 
-    private int isFavorite = 0;
+    private int isFavorite =0;
 
     public int isFavorite() {
         return isFavorite;

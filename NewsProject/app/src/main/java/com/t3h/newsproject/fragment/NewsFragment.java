@@ -1,5 +1,6 @@
 package com.t3h.newsproject.fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,11 +8,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.t3h.newsproject.Const;
@@ -32,12 +35,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class NewsFragment extends BaseFragment<MainActivity> implements Callback<NewsResponsive>, SearchView.OnQueryTextListener, NewsAdapter.ItemClickListener {
+public class NewsFragment extends BaseFragment<MainActivity> implements Callback<NewsResponsive>, SearchView.OnQueryTextListener, NewsAdapter.ItemClickListener, View.OnClickListener {
     private RecyclerView recyclerNews;
     private NewsAdapter adapter;
-    private String keySearch;
+    private String language = "vi";
     private String TAG = "NewsFragment";
     private SearchView searchView;
+    private List<News> currentData;
+    private Dialog dialog;
+    private MenuItem itemCountry;
 
     @Override
     protected int getLayoutId() {
@@ -46,18 +52,33 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
 
     @Override
     public String getTitle() {
-        return "Tin mới";
+        return "News";
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        initView();
+    }
+
+    private void initView() {
         recyclerNews = findViewById(R.id.recycler_news);
         adapter = new NewsAdapter(getContext());
         recyclerNews.setAdapter(adapter);
+        recyclerNews.addItemDecoration(new DividerItemDecoration(recyclerNews.getContext(), DividerItemDecoration.VERTICAL));
         adapter.setItemClickListener(this);
         setHasOptionsMenu(true);
-        initData();
+        if (currentData != null) {
+            adapter.setData(currentData);
+        }
+        ImageButton btn_vi, btn_en;
+        dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.dialog);
+        btn_vi = dialog.findViewById(R.id.btn_vi);
+        btn_en = dialog.findViewById(R.id.btn_en);
+        btn_vi.setOnClickListener(this);
+        btn_en.setOnClickListener(this);
         Log.d("NewsFag", "created");
     }
 
@@ -65,28 +86,36 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.options_menu, menu);
-        MenuItem item = menu.findItem(R.id.search_bar);
-        searchView = (SearchView) item.getActionView();
+        MenuItem itemSearch = menu.findItem(R.id.search_bar);
+        searchView = (SearchView) itemSearch.getActionView();
         searchView.setIconified(false);
         searchView.setOnQueryTextListener(this);
+        itemCountry = menu.findItem(R.id.choose_country);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    public void initData() {
-        if (keySearch != null) {
-            String apiKey = "8921d0b0544848a9b059d19e8a93b71b";
-            String language = "vi";
-            ApiBuilder.getInstance().getNews(keySearch, apiKey, language).enqueue(this);
-            Log.d(TAG, "not null");
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.choose_country:
+                showDialog();
+                break;
         }
-//        else {
-//            keySearch = "ronaldo";
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showDialog() {
+        dialog.show();
+    }
+
+    //    public void initData() {
+//        if (keySearch != null) {
 //            String apiKey = "8921d0b0544848a9b059d19e8a93b71b";
 //            String language = "vi";
-//            Log.d(TAG, "null");
 //            ApiBuilder.getInstance().getNews(keySearch, apiKey, language).enqueue(this);
+//            Log.d(TAG, "not null");
 //        }
-    }
+//    }
 
     @Override
     public void onResponse(Call<NewsResponsive> call, Response<NewsResponsive> response) {
@@ -95,6 +124,7 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
         news.toArray(arr);
         Log.d(TAG, "response " + arr.length);
         adapter.setData(Arrays.asList(arr));
+        currentData = news;
     }
 
     @Override
@@ -106,8 +136,6 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
     public boolean onQueryTextSubmit(String query) {
         String keySearch = searchView.getQuery().toString();
         String apiKey = "8921d0b0544848a9b059d19e8a93b71b";
-        String language = "vi";
-
         ApiBuilder.getInstance().getNews(keySearch, apiKey, language).enqueue(this);
         return false;
     }
@@ -132,5 +160,21 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
         AppDatabase.getInstance(getContext()).getNewsDao().insert(item);
         getParentActivity().getFmSave().initData();
         Toast.makeText(getContext(), "Tin đã lưu", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_vi:
+                language = "vi";
+                itemCountry.setIcon(R.drawable.ic_vietnam);
+                dialog.dismiss();
+                break;
+            case R.id.btn_en:
+                language = "en";
+                itemCountry.setIcon(R.drawable.ic_england);
+                dialog.dismiss();
+                break;
+        }
     }
 }

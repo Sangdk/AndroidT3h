@@ -28,8 +28,8 @@ public interface NewsDao {
     @Delete
     void delete(News... news);
 
-    @Query("DELETE FROM news")
-    void deleteAll();
+    @Query("DELETE FROM news WHERE id = :id")
+    void deleteByID(long id);
 
     @Query("UPDATE news SET isFavorite =1 WHERE id= :id")
     void setFavorite(long id);

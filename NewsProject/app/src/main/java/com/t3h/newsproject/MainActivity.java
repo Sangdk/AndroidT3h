@@ -1,5 +1,6 @@
 package com.t3h.newsproject;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -31,10 +32,15 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         viewPager = findViewById(R.id.view_pager);
         tabLayout = findViewById(R.id.tab_layout);
 
-        adapter = new PagerAdapterNews(getSupportFragmentManager(),fmNews,fmSave,fmFavorite);
+        adapter = new PagerAdapterNews(getSupportFragmentManager(), fmNews, fmSave, fmFavorite);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(this);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setLogo(R.drawable.lg_newspaper_padding);
+        actionBar.setDisplayUseLogoEnabled(true);
     }
 
     public FavoriteFragment getFmFavorite() {

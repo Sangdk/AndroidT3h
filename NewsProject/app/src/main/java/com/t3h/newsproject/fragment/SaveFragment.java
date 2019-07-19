@@ -34,7 +34,7 @@ public class SaveFragment extends BaseFragment<MainActivity> implements NewsAdap
 
     @Override
     public String getTitle() {
-        return "Tin đã lưu";
+        return "Saved";
     }
 
     @Override
@@ -47,15 +47,17 @@ public class SaveFragment extends BaseFragment<MainActivity> implements NewsAdap
 
     public void initData() {
         data = AppDatabase.getInstance(getContext()).getNewsDao().getAll();
-        adapter.setData(data);
+        if (data != null) {
+            adapter.setData(data);
+        }
         setText();
     }
 
     private void setText() {
         StringBuffer txt = new StringBuffer();
-        txt.append("Tin đã lưu: ");
+        txt.append("Saved: ");
         txt.append(data.size());
-        txt.append(" Tin");
+        txt.append(" news");
         txtSave.setText(txt.toString());
     }
 
@@ -81,7 +83,9 @@ public class SaveFragment extends BaseFragment<MainActivity> implements NewsAdap
     @Override
     public void onItemLongClickListener(int position) {
         this.position = position;
-        PopupMenu popup = new PopupMenu(getContext(), getView());
+        PopupMenu popup = new PopupMenu(getContext(), recyclerSave
+                .findViewHolderForAdapterPosition(position)
+                .itemView);
         popup.inflate(R.menu.context_menu_save);
         popup.setOnMenuItemClickListener(this);
         popup.show();
@@ -89,9 +93,9 @@ public class SaveFragment extends BaseFragment<MainActivity> implements NewsAdap
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+        long id = data.get(position).getId();
         switch (item.getItemId()) {
             case R.id.it_like:
-                long id = data.get(position).getId();
                 AppDatabase.getInstance(getContext()).getNewsDao().setFavorite(id);
                 getParentActivity().getFmFavorite().initData();
                 break;
@@ -101,10 +105,7 @@ public class SaveFragment extends BaseFragment<MainActivity> implements NewsAdap
                 adapter.notifyItemRangeChanged(position, data.size());
                 setText();
 
-                News[] news = new News[data.size()];
-                data.toArray(news);
-                AppDatabase.getInstance(getContext()).getNewsDao().deleteAll();
-                AppDatabase.getInstance(getContext()).getNewsDao().insertAll(news);
+                AppDatabase.getInstance(getContext()).getNewsDao().deleteByID(id);
                 break;
         }
         return false;

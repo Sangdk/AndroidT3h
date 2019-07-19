@@ -31,7 +31,7 @@ public class FavoriteFragment extends BaseFragment<MainActivity> implements News
 
     @Override
     public String getTitle() {
-        return "Tin đã thích";
+        return "Favorite";
     }
 
     @Override
@@ -67,7 +67,9 @@ public class FavoriteFragment extends BaseFragment<MainActivity> implements News
     @Override
     public void onItemLongClickListener(int position) {
         this.position = position;
-        PopupMenu popup = new PopupMenu(getContext(), getView());
+        PopupMenu popup = new PopupMenu(getContext(), recyclerFavorite
+                .findViewHolderForAdapterPosition(position)
+                .itemView);
         popup.inflate(R.menu.context_menu_favorite);
         popup.setOnMenuItemClickListener(this);
         popup.show();
