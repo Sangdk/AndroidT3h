@@ -44,6 +44,7 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
     private List<News> currentData;
     private Dialog dialog;
     private MenuItem itemCountry;
+    private String currentLanguage = "vi";
 
     @Override
     protected int getLayoutId() {
@@ -72,6 +73,8 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
         if (currentData != null) {
             adapter.setData(currentData);
         }
+        language = currentLanguage;
+
         ImageButton btn_vi, btn_en;
         dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.dialog);
@@ -168,11 +171,13 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
             case R.id.btn_vi:
                 language = "vi";
                 itemCountry.setIcon(R.drawable.ic_vietnam);
+                currentLanguage = "vi";
                 dialog.dismiss();
                 break;
             case R.id.btn_en:
                 language = "en";
                 itemCountry.setIcon(R.drawable.ic_england);
+                currentLanguage = "en";
                 dialog.dismiss();
                 break;
         }
