@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ import com.t3h.newsproject.R;
 import com.t3h.newsproject.WebViewActivity;
 import com.t3h.newsproject.api.ApiBuilder;
 import com.t3h.newsproject.dao.AppDatabase;
+import com.t3h.newsproject.model.DownloadAsync;
 import com.t3h.newsproject.model.News;
 import com.t3h.newsproject.model.NewsAdapter;
 import com.t3h.newsproject.model.NewsResponsive;
@@ -35,7 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class NewsFragment extends BaseFragment<MainActivity> implements Callback<NewsResponsive>, SearchView.OnQueryTextListener, NewsAdapter.ItemClickListener, View.OnClickListener {
+public class NewsFragment extends BaseFragment<MainActivity> implements Callback<NewsResponsive>, SearchView.OnQueryTextListener, NewsAdapter.ItemClickListener, View.OnClickListener, DownloadAsync.DownloadCallback {
     private RecyclerView recyclerNews;
     private NewsAdapter adapter;
     private String language = "vi";
@@ -45,6 +47,9 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
     private Dialog dialog;
     private MenuItem itemCountry;
     private String currentLanguage = "vi";
+    public String path;
+    private News item;
+    private Dialog dialogLoading;
 
     @Override
     protected int getLayoutId() {
@@ -74,6 +79,10 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
             adapter.setData(currentData);
         }
         language = currentLanguage;
+
+        dialogLoading = new Dialog(getContext());
+        dialogLoading.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogLoading.setContentView(R.layout.dialog_loading);
 
         ImageButton btn_vi, btn_en;
         dialog = new Dialog(getActivity());
@@ -159,10 +168,25 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
 
     @Override
     public void onItemLongClickListener(int position) {
-        News item = adapter.getData().get(position);
-        AppDatabase.getInstance(getContext()).getNewsDao().insert(item);
-        getParentActivity().getFmSave().initData();
-        Toast.makeText(getContext(), "Tin đã lưu", Toast.LENGTH_SHORT).show();
+        dialogLoading.show();
+        item = adapter.getData().get(position);
+
+        String link = item.getUrl();
+        if (link.isEmpty()) {
+            Toast.makeText(getContext(), "Cant save this news", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        DownloadAsync async = new DownloadAsync(this);
+        async.execute(link);
+
+//        if (path != null) {
+//            item.setUrl(path);
+//        }
+//        AppDatabase.getInstance(getContext()).getNewsDao().insert(item);
+//        getParentActivity().getFmSave().initData();
+
+
+//        Toast.makeText(getContext(), "Tin đã lưu", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -181,5 +205,23 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
                 dialog.dismiss();
                 break;
         }
+    }
+
+    @Override
+    public void onDownloadUpdate(int percent) {
+
+    }
+
+    @Override
+    public void onDownloadSuccess(String path) {
+        dialogLoading.dismiss();
+        this.path = path;
+        if (path != null) {
+            item.setUrl(path);
+        }
+        Log.d("xxx", item.getUrl());
+        AppDatabase.getInstance(getContext()).getNewsDao().insert(item);
+        getParentActivity().getFmSave().initData();
+        Toast.makeText(getContext(), "Download complete", Toast.LENGTH_SHORT).show();
     }
 }

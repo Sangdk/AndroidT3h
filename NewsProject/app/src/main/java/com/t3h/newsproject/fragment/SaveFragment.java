@@ -74,7 +74,7 @@ public class SaveFragment extends BaseFragment<MainActivity> implements NewsAdap
     public void onItemClickListener(int position) {
         String url = adapter.getData().get(position).getUrl();
         Intent intent = new Intent(getParentActivity(), WebViewActivity.class);
-        intent.putExtra(Const.EXTRA_URL, url);
+        intent.putExtra(Const.EXTRA_PATH, url);
         getParentActivity().startActivity(intent);
         Log.d("SaveFrag", "show web view:" + url);
 
