@@ -216,11 +216,16 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
     public void onDownloadSuccess(String path) {
         dialogLoading.dismiss();
         this.path = path;
+
         if (path != null) {
-            item.setUrl(path);
+            long id = item.getId();
+            String title = item.getTitle();
+            String desc = item.getDesc();
+            String img = item.getImg();
+            String date = item.getDate();
+            News news = new News(id, title, desc, path, img, date);
+            AppDatabase.getInstance(getContext()).getNewsDao().insert(news);
         }
-        Log.d("xxx", item.getUrl());
-        AppDatabase.getInstance(getContext()).getNewsDao().insert(item);
         getParentActivity().getFmSave().initData();
         Toast.makeText(getContext(), "Download complete", Toast.LENGTH_SHORT).show();
     }

@@ -3,6 +3,7 @@ package com.t3h.newsproject;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -33,8 +34,11 @@ public class WebViewActivity extends AppCompatActivity {
         String path = intent.getStringExtra(Const.EXTRA_PATH);
         if (url != null) {
             webView.loadUrl(url);
+            Log.d("WebView","load: "+url);
         } else {
             webView.loadUrl("file://" + path);
+            Log.d("WebView","load: "+path);
+
         }
         webView.setWebViewClient(new WebViewClient() {
             @Override
