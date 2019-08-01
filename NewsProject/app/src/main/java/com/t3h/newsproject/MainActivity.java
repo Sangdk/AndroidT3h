@@ -7,11 +7,9 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Window;
 
 import com.google.android.material.tabs.TabLayout;
 import com.t3h.newsproject.fragment.FavoriteFragment;

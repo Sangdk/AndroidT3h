@@ -137,6 +137,7 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
         Log.d(TAG, "response " + arr.length);
         adapter.setData(Arrays.asList(arr));
         currentData = news;
+        dialogLoading.dismiss();
     }
 
     @Override
@@ -149,6 +150,7 @@ public class NewsFragment extends BaseFragment<MainActivity> implements Callback
         String keySearch = searchView.getQuery().toString();
         String apiKey = "8921d0b0544848a9b059d19e8a93b71b";
         ApiBuilder.getInstance().getNews(keySearch, apiKey, language).enqueue(this);
+        dialogLoading.show();
         return false;
     }
 

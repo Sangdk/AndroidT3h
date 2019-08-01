@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="percent"
+            type="java.lang.Integer" />
+
+        <variable
+            name="success"
+            type="java.lang.Boolean" />
+
+        <variable
+            name="listener"
+            type="com.t3h.buoi13.download.DownloadListener" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/edt_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="input link" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="@{success}"
+            android:onClick="@{(v) -> listener.onDownloadClick()}"
+            android:text="down" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="@{percent}" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="@{success}"
+            android:onClick="@{v -> listener.onPreviewClick()}"
+            android:text="Preview" />
+    </LinearLayout>
+</layout>
