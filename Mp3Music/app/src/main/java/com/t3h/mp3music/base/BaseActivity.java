@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
+import com.t3h.mp3music.R;
+
 public abstract class BaseActivity<BD extends ViewDataBinding> extends AppCompatActivity {
     protected BD binding;
 

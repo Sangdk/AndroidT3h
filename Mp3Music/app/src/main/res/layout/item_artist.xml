@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.t3h.mp3music.model.Artist" />
+
+        <variable
+            name="listener"
+            type="com.t3h.mp3music.fragment.artist.ArtistItemListener" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{v -> listener.onArtistClick(item)}"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_microphone__1" />
+
+        <LinearLayout
+            android:layout_marginLeft="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@color/tex_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="@{item.name}"
+                android:textStyle="bold" />
+
+            <TextView
+                android:textColor="@color/tex_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{item.numberOfAlbum + `Albums,` +item.numberOfTracks+`Song`}" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

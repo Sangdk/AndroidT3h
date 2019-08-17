@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#03A9F4</color>
-    <color name="colorPrimaryDark">#03A9F4</color>
+    <color name="colorPrimary">#424242</color>
+    <color name="colorPrimaryItem">#B3424242</color>
+    <color name="colorPrimaryDark">#424242</color>
     <color name="colorAccent">#FFEE58</color>
+    <color name="textColorPrimary">#442C2E</color>
+    <color name="colorControlActivated">#FBB8AC</color>
+    <color name="tex_color">#FAFAFA</color>
+    <color name="seek_bar_color">#80FAFAFA</color>
+    <color name="tex_color_trans">#CCFAFAFA</color>
+    <color name="background_trans">#B3263238</color>
 </resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.t3h.mp3music.model.Album" />
+
+        <variable
+            name="listener"
+            type="com.t3h.mp3music.fragment.album.AlbumItemListener" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:onClick="@{v -> listener.onAlbumItemClick(item)}"
+        android:padding="5dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            app:thumb="@{item.image}" />
+
+        <TextView
+            android:selectAllOnFocus="true"
+            android:scrollHorizontally="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/background_trans"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:id="@+id/txt_album"
+            android:padding="5dp"
+            android:text="@{item.name}" />
+    </RelativeLayout>
+</layout>

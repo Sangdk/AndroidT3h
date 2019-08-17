@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.t3h.mp3music.BR;
 import com.t3h.mp3music.model.BaseModel;
 
 import java.util.ArrayList;
@@ -21,8 +22,8 @@ public class BaseAdapter<T extends BaseModel> extends RecyclerView.Adapter<BaseA
     private int layoutId;
     private BaseItemListener listener;
 
-    public BaseAdapter(Context contex, @LayoutRes int layoutId) {
-        inflater = LayoutInflater.from(contex);
+    public BaseAdapter(Context context, @LayoutRes int layoutId) {
+        inflater = LayoutInflater.from(context);
         this.layoutId = layoutId;
     }
 
@@ -50,8 +51,8 @@ public class BaseAdapter<T extends BaseModel> extends RecyclerView.Adapter<BaseA
     @Override
     public void onBindViewHolder(@NonNull BaseHolder holder, int position) {
         T item = data.get(position);
-//        holder.binding.setVariable(BR.item, item);
-//        holder.binding.setVariable(BR.listener, listener);
+        holder.binding.setVariable(BR.item, item);
+        holder.binding.setVariable(BR.listener, listener);
         holder.binding.executePendingBindings();
     }
 
